@@ -1,0 +1,25 @@
+/* Basic app styles and mobile-friendly defaults */
+:root{
+  --bg: #fff;
+  --text: #1f2937;
+}
+html,body,#root{height:100%;}
+body{
+  margin:0;
+  font-family: 'Poppins', system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', Arial;
+  background:var(--bg);
+  color:var(--text);
+  -webkit-font-smoothing:antialiased;
+  -moz-osx-font-smoothing:grayscale;
+}
+/* Small utility to ensure images are responsive */
+img{max-width:100%;height:auto;display:block}
+/* Make buttons slightly larger for touch */
+button{touch-action:manipulation}
+
+/* A few helpful container defaults */
+.container{max-width:1024px;margin:0 auto;padding:0 16px}
+
+/* hide scrollbars on supported browsers (keeps original project's style) */
+.no-scrollbar::-webkit-scrollbar{display:none}
+.no-scrollbar{-ms-overflow-style:none;scrollbar-width:none}
