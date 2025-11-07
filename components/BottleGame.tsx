@@ -85,37 +85,47 @@ const BottleGame: React.FC = () => {
       const segmentAngle = 360 / numPlayers;
       const finalBottleRotation = newRotation % 360;
       
-      // SEPARATE LOGIC FOR 2 PLAYERS vs 3+ PLAYERS:
+      // DETAILED EXPLANATION OF THE GEOMETRY:
       // 
-      // FOR 2 PLAYERS:
-      // - The original logic works correctly (no offset needed)
-      // - Cap direction = finalBottleRotation (no +180)
+      // BOTTLE SVG:
+      // - The bottle SVG viewBox is "0 0 100 300" (100 wide, 300 tall)
+      // - CAP is at y=10 (visual top of bottle - the NARROW part with the small cap rectangle)
+      // - BASE is at y=300 (visual bottom of bottle - the WIDE part)
+      // - When rotation=0°, the CAP points UP (0°) and BASE points DOWN (180°)
+      // 
+      // WINNER SELECTION RULE:
+      // - For 3, 4, 5, 6 players: The BOTTLE CAP (narrow end, front side) points to winner
+      // - For 2 players: Special case - use BASE direction (add +180°) due to geometry
       //
-      // FOR 3, 4, 5, 6 PLAYERS:
-      // - We need to use the BASE direction (+180 offset)
-      // - Base direction = finalBottleRotation + 180
-      //
-      // This is because of how the board geometry and rendering works differently
-      // for 2 players (180° symmetry) vs more complex layouts.
+      // BOARD SEGMENTS:
+      // - conic-gradient starts from boardStartAngle = 360 - (segmentAngle/2)
+      // - This centers Player 0 at the top (0°/360°)
+      // - Segments are drawn clockwise:
+      //   * For 2 players: Player 0 at 0° (top), Player 1 at 180° (bottom)
+      //   * For 3 players: Player 0 at 0° (top), Player 1 at 120°, Player 2 at 240°
+      //   * For 4 players: Player 0 at 0°, Players at 90°, 180°, 270°
+      //   * For 5 players: Player 0 at 0°, evenly distributed
+      //   * For 6 players: Player 0 at 0°, evenly distributed
       
-      let winningAngle;
+      // SPECIAL HANDLING: 2 players needs base direction, others use cap direction
+      let winningDirection;
       if (numPlayers === 2) {
-        // 2 players: use cap direction (no offset)
-        winningAngle = finalBottleRotation;
+        // For 2 players: use BASE (opposite end) direction
+        winningDirection = (finalBottleRotation + 180) % 360;
       } else {
-        // 3, 4, 5, 6 players: use base direction (+180° offset)
-        winningAngle = (finalBottleRotation + 180) % 360;
+        // For 3, 4, 5, 6 players: use CAP (front) direction
+        winningDirection = finalBottleRotation;
       }
       
       const boardStartAngle = 360 - (segmentAngle / 2);
       
-      // Convert the winning angle to the gradient's coordinate system
-      let angleInGradientSpace = (winningAngle - boardStartAngle + 360) % 360;
+      // Convert the winning direction to the gradient's coordinate system
+      let angleInGradientSpace = (winningDirection - boardStartAngle + 360) % 360;
       
-      // Find which segment (player) this angle falls into
+      // Find which segment (player) is selected
       let calculatedIndex = Math.floor(angleInGradientSpace / segmentAngle) % numPlayers;
 
-      console.log(`[${numPlayers} players] Bottle rotation: ${finalBottleRotation.toFixed(1)}°, winning angle: ${winningAngle.toFixed(1)}°, gradient space: ${angleInGradientSpace.toFixed(1)}°, player index: ${calculatedIndex}, winner: ${players[calculatedIndex]}`);
+      console.log(`[${numPlayers} players] Bottle rotation: ${finalBottleRotation.toFixed(1)}°, ${numPlayers === 2 ? 'BASE' : 'CAP'} points to: ${winningDirection.toFixed(1)}°, gradient space: ${angleInGradientSpace.toFixed(1)}°, player index: ${calculatedIndex}, winner: ${players[calculatedIndex]}`);
 
       setWinner(players[calculatedIndex]);
       setWinnerIndex(calculatedIndex);
