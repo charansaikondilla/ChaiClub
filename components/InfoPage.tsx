@@ -96,29 +96,128 @@ const InfoPage: React.FC = () => {
                 </div>
             </div>
 
-            {/* Developer Credit Section */}
-            <div className="bg-light-cream p-5 rounded-2xl shadow-md text-center">
-                <h3 className="text-sm font-semibold text-charcoal-gray">Website Developed & Maintained by</h3>
-                <p className="text-xl font-bold text-deep-tea-brown mt-1">Charan Sai Kondilla</p>
-                <div className="mt-4 flex flex-col sm:flex-row justify-center items-center gap-3">
-                    <a 
-                      href="https://wa.me/917995597570" 
-                      target="_blank" 
-                      rel="noopener noreferrer" 
-                      className="w-full sm:w-auto flex-1 inline-flex items-center justify-center gap-2 bg-button-cream text-deep-tea-brown font-semibold py-2.5 px-5 rounded-lg hover:bg-opacity-80 transition-all duration-200 shadow-sm"
-                    >
-                        <WhatsAppIcon />
-                        <span>WhatsApp</span>
-                    </a>
-                     <a 
-                      href="#" // TODO: Add developer portfolio link here
-                      target="_blank" 
-                      rel="noopener noreferrer" 
-                      className="w-full sm:w-auto flex-1 inline-flex items-center justify-center gap-2 bg-button-cream text-deep-tea-brown font-semibold py-2.5 px-5 rounded-lg hover:bg-opacity-80 transition-all duration-200 shadow-sm"
-                    >
-                        <LinkIcon />
-                        <span>Portfolio</span>
-                    </a>
+            {/* Developer Credit Section - Matching Chai Club Theme */}
+            <div className="relative bg-gradient-to-br from-creamy-beige via-light-cream to-creamy-beige p-6 rounded-3xl shadow-2xl border-2 border-button-cream overflow-hidden">
+                {/* Decorative Background Elements - Tea Theme */}
+                <div className="absolute inset-0 opacity-10">
+                    <div className="absolute top-0 right-0 w-32 h-32 bg-deep-tea-brown rounded-full blur-3xl"></div>
+                    <div className="absolute bottom-0 left-0 w-32 h-32 bg-charcoal-gray rounded-full blur-3xl"></div>
+                    <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-40 h-40 bg-button-cream rounded-full blur-3xl"></div>
+                </div>
+
+                {/* Content */}
+                <div className="relative z-10">
+                    {/* Badge Header - Tea Brown Theme */}
+                    <div className="flex items-center justify-center gap-2 mb-4">
+                        <div className="bg-gradient-to-r from-deep-tea-brown to-charcoal-gray px-5 py-2 rounded-full shadow-lg border border-button-cream">
+                            <p className="text-xs font-bold text-light-cream uppercase tracking-widest flex items-center gap-2">
+                                <span className="text-base">⚡</span>
+                                <span>Powered by</span>
+                            </p>
+                        </div>
+                    </div>
+
+                    {/* Company Branding Card - Glass Effect with Theme Colors */}
+                    <div className="bg-white/60 backdrop-blur-md border-2 border-button-cream rounded-2xl p-6 mb-5 shadow-xl">
+                        <div className="text-center">
+                            {/* Logo with Tea Theme */}
+                            <div className="inline-flex items-center justify-center w-20 h-20 bg-gradient-to-br from-deep-tea-brown via-charcoal-gray to-deep-tea-brown rounded-2xl mb-4 shadow-2xl border-2 border-button-cream transform hover:scale-105 transition-transform duration-300">
+                                <span className="text-4xl font-black text-light-cream drop-shadow-lg">T</span>
+                            </div>
+                            
+                            {/* Company Name - Gradient matching tea colors */}
+                            <h3 className="text-4xl font-black text-transparent bg-clip-text bg-gradient-to-r from-deep-tea-brown via-charcoal-gray to-deep-tea-brown mb-2 tracking-tight drop-shadow-sm">
+                                Techmans
+                            </h3>
+                            
+                            {/* Tagline */}
+                            <div className="inline-block bg-button-cream px-4 py-1 rounded-full">
+                                <p className="text-xs font-semibold text-deep-tea-brown">
+                                    Web Development & Digital Solutions
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+
+                    {/* Action Buttons - Matching Theme Colors */}
+                    <div className="flex flex-col sm:flex-row gap-4 mb-5">
+                        {/* WhatsApp Button - Tea Brown Primary */}
+                        <a 
+                          href="https://wa.me/917995597570" 
+                          target="_blank" 
+                          rel="noopener noreferrer" 
+                          className="flex-1 group relative bg-gradient-to-br from-deep-tea-brown to-charcoal-gray text-light-cream font-bold py-5 px-6 rounded-2xl shadow-xl hover:shadow-2xl border-2 border-button-cream transition-all duration-300 hover:scale-105 overflow-hidden"
+                        >
+                            {/* Shine effect on hover */}
+                            <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/20 to-transparent -translate-x-full group-hover:translate-x-full transition-transform duration-700"></div>
+                            
+                            <div className="relative flex items-center justify-center gap-3">
+                                <div className="bg-light-cream/20 p-2 rounded-lg">
+                                    <WhatsAppIcon />
+                                </div>
+                                <div className="text-left">
+                                    <p className="text-xs text-button-cream font-medium">Chat with us on</p>
+                                    <p className="text-lg font-black">WhatsApp</p>
+                                </div>
+                            </div>
+                        </a>
+
+                        {/* Portfolio Button - Complementary Color */}
+                        <a 
+                          href="https://charansaikondilla.github.io/Techmans/#" 
+                          target="_blank" 
+                          rel="noopener noreferrer" 
+                          className="flex-1 group relative bg-gradient-to-br from-charcoal-gray to-deep-tea-brown text-light-cream font-bold py-5 px-6 rounded-2xl shadow-xl hover:shadow-2xl border-2 border-button-cream transition-all duration-300 hover:scale-105 overflow-hidden"
+                        >
+                            {/* Shine effect on hover */}
+                            <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/20 to-transparent -translate-x-full group-hover:translate-x-full transition-transform duration-700"></div>
+                            
+                            <div className="relative flex items-center justify-center gap-3">
+                                <div className="bg-light-cream/20 p-2 rounded-lg">
+                                    <LinkIcon />
+                                </div>
+                                <div className="text-left">
+                                    <p className="text-xs text-button-cream font-medium">Explore our</p>
+                                    <p className="text-lg font-black">Portfolio</p>
+                                </div>
+                            </div>
+                        </a>
+                    </div>
+
+                    {/* Contact Info Bar - Refined with Theme */}
+                    <div className="bg-button-cream/50 backdrop-blur-sm rounded-xl py-3 px-5 border border-button-cream">
+                        <div className="flex flex-col sm:flex-row items-center justify-center gap-3 sm:gap-6">
+                            {/* Phone */}
+                            <div className="flex items-center gap-2">
+                                <div className="bg-deep-tea-brown/10 p-2 rounded-lg">
+                                    <span className="text-lg">📞</span>
+                                </div>
+                                <a 
+                                  href="tel:+917995597570" 
+                                  className="text-sm font-bold text-deep-tea-brown hover:text-charcoal-gray transition-colors"
+                                >
+                                  +91 79955 97570
+                                </a>
+                            </div>
+                            
+                            <span className="hidden sm:block w-px h-6 bg-deep-tea-brown/20"></span>
+                            
+                            {/* Availability Badge */}
+                            <div className="flex items-center gap-2">
+                                <div className="w-2 h-2 bg-green-500 rounded-full animate-pulse"></div>
+                                <span className="text-xs font-semibold text-charcoal-gray">Available 24/7</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    {/* Bottom Accent */}
+                    <div className="mt-4 flex items-center justify-center">
+                        <div className="flex items-center gap-2 text-xs text-charcoal-gray/60">
+                            <span>☕</span>
+                            <span className="font-medium">Quality • Innovation • Trust</span>
+                            <span>☕</span>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
