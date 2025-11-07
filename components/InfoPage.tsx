@@ -66,8 +66,8 @@ const InfoPage: React.FC = () => {
                     <div className="flex items-center gap-3">
                         <PhoneIcon />
                         <div>
-                            <span className="font-semibold text-deep-tea-brown block">Suresh</span>
-                            <a href="tel:+919390661557" className="text-charcoal-gray hover:underline">+91 93906 61557</a>
+                            <span className="font-semibold text-deep-tea-brown block">bhanu Prasad</span>
+                            <a href="tel:+919652986182" className="text-charcoal-gray hover:underline">+91 96529 86182</a>
                         </div>
                     </div>
                 </div>
