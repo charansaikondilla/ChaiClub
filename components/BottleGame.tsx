@@ -90,10 +90,17 @@ const BottleGame: React.FC = () => {
       // not the base, correctly selects the winner.
       const winningAngle = (finalBottleRotation + 180) % 360;
 
+      // The board segments start at (360 - segmentAngle/2) degrees and go clockwise.
+      // Player 0 segment: [360 - segmentAngle/2, 360 + segmentAngle/2] (wraps around 0°)
+      // Player 1 segment: [segmentAngle/2, 3*segmentAngle/2]
+      // etc.
       const boardStartAngle = 360 - (segmentAngle / 2);
-      const relativeAngle = (winningAngle - boardStartAngle + 360) % 360;
       
-      const calculatedIndex = Math.floor(relativeAngle / segmentAngle);
+      // Adjust the winning angle relative to where player 0's segment starts
+      let adjustedAngle = (winningAngle - boardStartAngle + 360) % 360;
+      
+      // Calculate which segment the bottle cap is pointing to
+      let calculatedIndex = Math.floor(adjustedAngle / segmentAngle) % numPlayers;
 
       setWinner(players[calculatedIndex]);
       setWinnerIndex(calculatedIndex);
