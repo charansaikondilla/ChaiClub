@@ -87,39 +87,40 @@ const BottleGame: React.FC = () => {
       
       // DETAILED EXPLANATION OF THE GEOMETRY:
       // 
-      // BOTTLE:
-      // - The SVG has the CAP at y=10 (top) and BASE at y=300 (bottom)
-      // - When rotation=0°, the bottle points UP (cap at top of screen, 0°)
-      // - When rotation=90°, the bottle points RIGHT (cap points right, 90°)
-      // - The CAP direction = finalBottleRotation
-      // - The BASE direction = (finalBottleRotation + 180) % 360
+      // BOTTLE SVG:
+      // - The bottle SVG viewBox is "0 0 100 300" (100 wide, 300 tall)
+      // - CAP is at y=10 (visual top of bottle - the narrow part with cap)
+      // - BASE is at y=300 (visual bottom of bottle - the wide part)
+      // - When rotation=0°, visually the CAP points UP and BASE points DOWN
+      // 
+      // IMPORTANT DISCOVERY:
+      // - The bottle is displayed in the CENTER of the board
+      // - Due to how it's rendered, we need to look at the BASE direction
+      // - The BASE is what "points to" the player (like a traditional spin-the-bottle game)
+      // - BASE direction = (finalBottleRotation + 180) % 360
       //
       // BOARD SEGMENTS:
-      // - conic-gradient starts from boardStartAngle
-      // - boardStartAngle = 360 - (segmentAngle/2) to center Player 0 at the top (0°)
-      // - Segments are drawn clockwise in the gradient's rotated coordinate system
-      // - In SCREEN coordinates:
-      //   * For 2 players (segmentAngle=180°, boardStart=270°):
-      //     Player 0: 270° to 90° (wraps through 0°, centered at top)
-      //     Player 1: 90° to 270° (centered at bottom)
-      //   * For 3 players (segmentAngle=120°, boardStart=300°):
-      //     Player 0: 300° to 60° (wraps through 0°, centered at top)
-      //     Player 1: 60° to 180° (centered at 120°)
-      //     Player 2: 180° to 300° (centered at 240°)
+      // - conic-gradient starts from boardStartAngle = 360 - (segmentAngle/2)
+      // - This centers Player 0 at the top (0°/360°)
+      // - Segments are drawn clockwise
+      //   * For 2 players: Player 0 at top, Player 1 at bottom (works because 180° apart)
+      //   * For 3 players: Player 0 at top (0°), Player 1 at 120°, Player 2 at 240°
+      //   * For 4 players: Player 0 at top (0°), Players at 90°, 180°, 270°
+      //   * etc.
       //
       // THE WINNER SELECTION:
-      // We want to select the player that the BOTTLE CAP is pointing toward.
+      // The bottle BASE points to the winner (traditional spin-the-bottle style)
       
-      const bottleCapDirection = finalBottleRotation;
+      const bottleBaseDirection = (finalBottleRotation + 180) % 360;
       const boardStartAngle = 360 - (segmentAngle / 2);
       
-      // Convert the cap direction to the gradient's coordinate system
-      let angleInGradientSpace = (bottleCapDirection - boardStartAngle + 360) % 360;
+      // Convert the base direction to the gradient's coordinate system
+      let angleInGradientSpace = (bottleBaseDirection - boardStartAngle + 360) % 360;
       
       // Find which segment (player) this angle falls into
       let calculatedIndex = Math.floor(angleInGradientSpace / segmentAngle) % numPlayers;
 
-      console.log(`[${numPlayers} players] Bottle stopped at ${finalBottleRotation.toFixed(1)}°, cap points to ${bottleCapDirection.toFixed(1)}°, gradient space: ${angleInGradientSpace.toFixed(1)}°, player index: ${calculatedIndex}, winner: ${players[calculatedIndex]}`);
+      console.log(`[${numPlayers} players] Bottle rotation: ${finalBottleRotation.toFixed(1)}°, BASE points to: ${bottleBaseDirection.toFixed(1)}°, gradient space: ${angleInGradientSpace.toFixed(1)}°, player index: ${calculatedIndex}, winner: ${players[calculatedIndex]}`);
 
       setWinner(players[calculatedIndex]);
       setWinnerIndex(calculatedIndex);
